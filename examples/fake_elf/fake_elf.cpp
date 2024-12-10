@@ -64,9 +64,21 @@ int main(void) {
     segment *header_seg = writer.segments.add();
     header_seg->set_type(PT_PHDR);
     header_seg->set_flags(PF_R);
-    header_seg->set_file_size(writer.get_segment_entry_size() * 2);
-    header_seg->set_virtual_address(writer.get_segments_offset());
-    header_seg->set_physical_address(writer.get_segments_offset());
+    header_seg->set_file_size(writer.get_segment_entry_size() * 3);
+    header_seg->set_memory_size(writer.get_segment_entry_size() * 3);
+    header_seg->set_virtual_address(writer.get_header_size());
+    header_seg->set_physical_address(writer.get_header_size());
+
+    // HEADER segment
+    segment *load_seg = writer.segments.add();
+    load_seg->set_type(PT_LOAD);
+    load_seg->set_flags(PF_R);
+    load_seg->set_file_size(writer.get_header_size() + writer.get_segment_entry_size() * 2);
+    load_seg->set_memory_size(writer.get_header_size() + writer.get_segment_entry_size() * 2);
+    load_seg->set_virtual_address(0);
+    load_seg->set_physical_address(0);
+    load_seg->set_align(0);
+    load_seg->set_offset(0);
 
     // LOAD segment
     segment *text_seg = writer.segments.add();

@@ -812,7 +812,10 @@ class elfio
                 return false;
             }
 
-            seg->set_file_size( segment_filesize );
+            if (segment_filesize)
+            {
+                seg->set_file_size( segment_filesize );
+            }
 
             // If we already have a memory size from loading an elf file (value > 0),
             // it must not shrink!

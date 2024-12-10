@@ -56,8 +56,8 @@ class segment
     virtual Elf_Half get_section_index_at( Elf_Half num ) const         = 0;
     virtual bool     is_offset_initialized() const                      = 0;
 
-  protected:
     ELFIO_SET_ACCESS_DECL( Elf64_Off, offset );
+  protected:
     ELFIO_SET_ACCESS_DECL( Elf_Half, index );
 
     virtual const std::vector<Elf_Half>& get_sections() const = 0;
